@@ -1,3 +1,5 @@
+# https://skillsmart.ru/algo/py-kf32y/y6a342a5104u.html
+
 class Node:
     def __init__(self, v):
         self.value = v
@@ -65,28 +67,20 @@ class LinkedList2:
         return n
 
     def insert(self, afterNode, newNode):
-        node = self.head
         if afterNode is None:
-            if node == None:
-                newNode.next, node.prev = node, newNode
-                newNode.prev = None
+            if not self.len():
+                newNode.prev = self.head.prev
+                newNode.next, self.head.prev = self.head, newNode
                 self.head = newNode
             else:
                 self.tail.next, newNode.prev = newNode, self.tail
-                newNode.next = None
+                newNode.next = self.tail.next
                 self.tail = newNode
-            return
-        while node is not None:
-            if node == afterNode:
-                if afterNode.next != None:
-                    afterNode.next, newNode.next = newNode, node.next
-                    newNode.prev, node.prev = afterNode, newNode
-                else:
-                    afterNode.next, newNode.next = newNode, None
-                    newNode.prev = afterNode
+        else:
+            if self.head is not None:
+                if self.tail == afterNode:
                     self.tail = newNode
-                return
-            node = node.next
+                afterNode.next, newNode.next = newNode, afterNode.next
 
     def add_in_head(self, newNode):
         node = self.head
@@ -94,5 +88,4 @@ class LinkedList2:
             newNode.next, node.prev = node, newNode
         else:
             newNode.next = None
-        self.head = newNode
-        
+        self.head = newNode        
