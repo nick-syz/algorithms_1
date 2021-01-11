@@ -46,7 +46,10 @@ class LinkedList:
         node = self.head
         while node is not None:
             if node.value == val:
-                if self.head != node and self.tail != node:
+                if self.head == node and self.tail == node:
+                    self.head = None
+                    self.tail = None
+                elif self.head != node and self.tail != node:
                     node_prev.next = node.next
                     node = node_prev
                 elif self.tail == node:
@@ -55,7 +58,7 @@ class LinkedList:
                 elif self.head == node:
                     self.head = node.next
                 if not all:
-                    return
+                    break
             node_prev = node
             node = node.next
     

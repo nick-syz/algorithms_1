@@ -24,7 +24,7 @@ class LinkedListTest(TestCase):
         self.assertEqual([n1, n1_1], self.list.find_all(n1.value))
 
         # verify finding elements in empty list
-        self.assertEqual(None, self.list.find_all(LinkedList()))
+        self.assertEqual([], self.list.find_all(LinkedList()))
         
         # vertify finding 1 element
         self.lst = LinkedList()
@@ -41,7 +41,8 @@ class LinkedListTest(TestCase):
         n5 = Node(5)
         n1_4 = Node(1)
         n1_5 = Node(1)
-        n1_6 = Node(1)
+        n999 = Node(999)
+        n22 = Node(22)
 
         self.list.add_in_tail(n1)
         self.list.add_in_tail(n1_2)
@@ -51,18 +52,23 @@ class LinkedListTest(TestCase):
         self.list.add_in_tail(n5)
         self.list.add_in_tail(n1_4)
         self.list.add_in_tail(n1_5)
-        self.list.add_in_tail(n1_6)
+        self.list.add_in_tail(n999)
+        self.list.add_in_tail(n22)
 
         # check len list
-        self.assertEqual(9, self.list.len())
+        self.assertEqual(10, self.list.len())
 
         # check delete, all=False
-        self.list.delete(1)
-        self.assertEqual(8, self.list.len())
+        self.list.delete(22)
+        self.assertEqual(9, self.list.len())
 
+        # check tail
+        obj = self.list.find(n999.value)
+        self.assertEqual(self.list.tail, obj)
+        
         # check delete, all=True
         self.list.delete(1, all=True)
-        self.assertEqual(2, self.list.len())
+        self.assertEqual(3, self.list.len())
 
         # check head
         head = self.list.head
@@ -70,7 +76,20 @@ class LinkedListTest(TestCase):
 
         # check tail
         tail = self.list.tail
-        self.assertEqual(tail, self.list.find(n5.value))
+        self.assertEqual(tail, n999)
+
+        # check delete all elements
+        self.list.delete(n2.value)
+        self.assertEqual(self.list.head, n5)
+        self.assertEqual(self.list.tail, n999)
+
+        self.list.delete(n999.value)
+        self.assertEqual(self.list.head, n5)
+        self.assertEqual(self.list.tail, n5)
+
+        self.list.delete(n5.value)
+        self.assertEqual(None, self.list.head)
+        self.assertEqual(None, self.list.tail)
 
     def test_insert(self):
         self.list.clean()
