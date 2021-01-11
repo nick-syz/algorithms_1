@@ -42,7 +42,10 @@ class LinkedList2:
         node = self.head
         while node is not None:
             if node.value == val:
-                if self.head != node and self.tail != node:
+                if self.head == node and self.tail == node:
+                    self.head = None
+                    self.tail = None
+                elif self.head != node and self.tail != node:
                     node.prev.next, node.next.prev = node.next, node.prev
                 elif self.tail == node:
                     self.tail = node.prev
