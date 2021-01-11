@@ -1,119 +1,116 @@
 from LinkedList import Node, LinkedList
+from unittest import TestCase
 
-def test_1():
-    lst = LinkedList()
-    lst.add_in_tail(Node(10))
-    lst.add_in_tail(Node(2))
-    lst.add_in_tail(Node(3))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(5))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(2))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(1))
-    lst.delete(1, all=True)
-    lst.print_all_nodes()
-    print('---')
-    print(f'head={lst.head.value} next={lst.head.next.value}')
-    print(f'tail={lst.tail.value} next={lst.tail.next}')
-    assert lst.len() == 5
+class LinkedListTest(TestCase):
 
-def test_2():
-    lst = LinkedList()
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(10))
-    lst.add_in_tail(Node(3))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(5))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(5))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(1))
-    lst.delete(1)
-    lst.print_all_nodes()
-    assert lst.len() == 11
+    def setUp(self):
+        self.list = LinkedList()
 
-def test_3():
-    lst = LinkedList()
-    lst.add_in_tail(Node(10))
-    lst.add_in_tail(Node(3))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(5))
-    lst.add_in_tail(Node(1))
-    lst.add_in_tail(Node(1))
-    lst.clean()
-    print(f'head={lst.head}')
-    print(f'tail={lst.tail}')
-    lst.print_all_nodes()
-    assert lst.len() == 0
+    def test_find_all(self):
+        n1 = Node(1)
+        n1_1 = Node(1)
+        n2 = Node(2)
+        n5 = Node(5)
+        
+        self.list.add_in_tail(n1)
+        self.list.add_in_tail(n2)
+        self.list.add_in_tail(n1_1)
+        self.list.add_in_tail(n5)
 
-def test_4():
-    lst = LinkedList()
-    lst.add_in_tail(Node(10))
-    lst.add_in_tail(Node(3))
-    lst.add_in_tail(Node(4))
-    lst.add_in_tail(Node(5))
-    lst.add_in_tail(Node(2))
-    lst.add_in_tail(Node(1))
-    lst.insert(Node(1), Node(2))
-    lst.insert(None, Node(100))
-    lst.print_all_nodes()
-    print('---')
-    print(f'head={lst.head.value} next={lst.head.next.value}')
-    print(f'tail={lst.tail.value} next={lst.tail.next}')
+        # verify len list
+        self.assertEqual(4, self.list.len())
 
-def sum_lists(list_1, list_2):
-    if list_1.len() == list_2.len():
-        node1 = list_1.head
-        node2 = list_2.head
-        while node1 != None and node2 != None:
-            node1.value = node1.value + node2.value
-            node1 = node1.next
-            node2 = node2.next
-        return list_1
+        # verify finding all elements
+        self.assertEqual([n1, n1_1], self.list.find_all(n1.value))
 
-def test_5():
-    lst1 = LinkedList()
-    lst2 = LinkedList()
-    lst1.add_in_tail(Node(10))
-    lst1.add_in_tail(Node(22))
-    lst2.add_in_tail(Node(1))
-    lst2.add_in_tail(Node(2))
-    lst = sum_lists(lst1, lst2)
-    lst.print_all_nodes()
+        # verify finding elements in empty list
+        self.assertEqual(None, self.list.find_all(LinkedList()))
+        
+        # vertify finding 1 element
+        self.lst = LinkedList()
+        n22 = Node(22)
+        self.lst.add_in_tail(n22)
+        self.assertEqual([n22], self.lst.find_all(n22.value))
+    
+    def test_delete(self):
+        self.list.clean()
+        n1 = Node(1)
+        n1_2 = Node(1)
+        n1_3 = Node(1)
+        n2 = Node(2)
+        n5 = Node(5)
+        n1_4 = Node(1)
+        n1_5 = Node(1)
+        n1_6 = Node(1)
 
-def test_6():
-    lst = LinkedList()
-    assert lst.len() == 0
+        self.list.add_in_tail(n1)
+        self.list.add_in_tail(n1_2)
+        self.list.add_in_tail(n1_3)
+        self.list.add_in_tail(n2)
+        self.list.add_in_tail(Node(1))
+        self.list.add_in_tail(n5)
+        self.list.add_in_tail(n1_4)
+        self.list.add_in_tail(n1_5)
+        self.list.add_in_tail(n1_6)
 
-def test_7():
-    lst = LinkedList()
-    lst.insert(Node(1), Node(2))
-    lst.print_all_nodes()
-    print(lst.len())
-    lst.delete(1)
-    lst.print_all_nodes()
-    print(lst.find_all(1))
-    print(lst.find(1))
+        # check len list
+        self.assertEqual(9, self.list.len())
 
-def test_8():
-    lst = LinkedList()
-    lst.add_in_tail(Node(1))
-    print(lst.head.value)
-    print(lst.tail.next)
+        # check delete, all=False
+        self.list.delete(1)
+        self.assertEqual(8, self.list.len())
 
-def test_9():
-    lst = LinkedList()
-    n10 = Node(10)
-    for i in range(5):
-        lst.add_in_tail(Node(i))
-    lst.add_in_tail(n10)
-    lst.insert(n10, Node(99))
-    lst.print_all_nodes()
+        # check delete, all=True
+        self.list.delete(1, all=True)
+        self.assertEqual(2, self.list.len())
 
-if __name__ == '__main__':
-    test_9()
+        # check head
+        head = self.list.head
+        self.assertEqual(head, self.list.find(n2.value))
+
+        # check tail
+        tail = self.list.tail
+        self.assertEqual(tail, self.list.find(n5.value))
+
+    def test_insert(self):
+        self.list.clean()
+
+        n1 = Node(1)
+        n1_1 = Node(1)
+        n2 = Node(2)
+        n5 = Node(5)
+
+        self.list.add_in_tail(n1)
+        self.list.add_in_tail(n2)
+        self.list.add_in_tail(n1_1)
+        self.list.add_in_tail(n5)
+
+        # check list len
+        self.assertEqual(4, self.list.len())
+
+        # check insert
+        n55 = Node(55)
+        self.list.insert(n1, n55)
+        self.assertEqual(n55, self.list.find(n55.value))
+        n55_obj = self.list.find(n55.value)
+        self.assertEqual(n55, n1.next)
+        
+        # check head
+        self.assertEqual(n1, self.list.head)
+
+        # check tail
+        self.assertEqual(n5, self.list.tail)
+
+        # check insert None
+        n111 = Node(111)
+        self.list.insert(None, n111)
+        
+        # check head
+        self.assertEqual(n111, self.list.head)
+
+        # check tail
+        self.assertEqual(n5, self.list.tail)
+
+        # check next
+        n111_obj = self.list.find(n111.value)
+        self.assertEqual(n1, n111_obj.next)
