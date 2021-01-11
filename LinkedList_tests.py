@@ -145,3 +145,79 @@ class LinkedListTest(TestCase):
         self.list.insert(Node(1), Node(55))
         self.assertEqual(None, self.list.head)
         self.assertEqual(None, self.list.tail)
+        
+        # check insert in empty list with afterNode=None
+        self.list.clean()
+        n1 = Node(1)
+        self.list.insert(None, n1)
+
+        # check head and tail
+        self.assertEqual(n1, self.list.head)
+        self.assertEqual(n1, self.list.tail)
+        
+        # check insert in empty list with afterNode!=None
+        self.list.clean()
+        self.list.insert(Node(1), n1)
+
+        self.assertEqual(None, self.list.head)
+        self.assertEqual(None, self.list.tail)
+
+        # check find in empty list
+        self.assertEqual(None, self.list.find(Node(1)))
+
+        # check find_all in empty list
+        self.assertEqual([], self.list.find_all(Node(1)))
+
+        # check delete in empty list
+        self.assertEqual(self.list.head, self.list.delete(1))
+        self.assertEqual(self.list.tail, self.list.delete(1))
+
+        # check clean in empty list
+        self.list.clean()
+        self.assertEqual(None, self.list.head)
+        self.assertEqual(None, self.list.tail)
+
+        # check len in empty list
+        self.assertEqual(0, self.list.len())
+
+    def test_one(self):
+        self.list.clean()
+        n1 = Node(1)
+        self.list.add_in_tail(n1)
+        
+        # check find all
+        self.assertEqual([n1], self.list.find_all(n1.value))
+        self.assertEqual([], self.list.find_all(Node(19).value))
+
+        # check delete, all=False
+        self.list.delete(Node(1).value)
+        self.assertEqual(self.list.head, None)
+        self.assertEqual(self.list.tail, None)
+
+        # check delete, all=True
+        self.list.add_in_tail(n1)
+        self.list.delete(Node(1).value, all=True)
+        self.assertEqual(self.list.head, None)
+        self.assertEqual(self.list.tail, None)
+
+        # check insert after None
+        self.list.add_in_tail(n1)
+        n10 = Node(10)
+        self.list.insert(None, n10)
+        self.assertEqual(n10, self.list.head)
+        self.assertEqual(n1, self.list.tail)
+
+        # check insert after some node in the middle of the list
+        n12 = Node(12)
+        self.list.insert(n10, n12)
+        self.assertEqual(n10, self.list.head)
+        self.assertEqual(n1, self.list.tail)
+
+        # check insert after end node
+        n13 = Node(13)
+        self.list.insert(n1, n13)
+        self.assertEqual(n10, self.list.head)
+        self.assertEqual(n13, self.list.tail)
+
+    def test_few(self):
+        pass
