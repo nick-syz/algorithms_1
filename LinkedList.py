@@ -40,9 +40,7 @@ class LinkedList:
             if node.value == val:
                 nodes.append(node)
             node = node.next
-        if len(nodes) > 0:
-            return nodes
-        return None
+        return nodes
 
     def delete(self, val, all=False):
         node = self.head

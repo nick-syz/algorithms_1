@@ -114,3 +114,15 @@ class LinkedListTest(TestCase):
         # check next
         n111_obj = self.list.find(n111.value)
         self.assertEqual(n1, n111_obj.next)
+
+    def test_empty(self):
+        self.list = LinkedList()
+        n55 = Node(55)
+        self.list.insert(None, n55)
+        self.assertEqual(self.list.head, self.list.find(n55.value))
+
+        self.list.clean()
+
+        self.list.insert(Node(1), Node(55))
+        self.assertEqual(None, self.list.head)
+        self.assertEqual(None, self.list.tail)
