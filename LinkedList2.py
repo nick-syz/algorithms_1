@@ -42,14 +42,14 @@ class LinkedList2:
         node = self.head
         while node is not None:
             if node.value == val:
-                if node.next is not None and node.prev is not None:
+                if self.head != node and self.tail != node:
                     node.prev.next, node.next.prev = node.next, node.prev
-                elif node.next == None:
+                elif self.tail == node:
                     self.tail = node.prev
                     node.prev.next = node.next
-                elif node.prev == None:
+                elif self.head == node:
                     self.head = node.next
-                    node.next.prev = None
+                    node.next.prev = node.prev
                 if not all:
                     return
             node = node.next
