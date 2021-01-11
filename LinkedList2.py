@@ -42,19 +42,19 @@ class LinkedList2:
         node = self.head
         while node is not None:
             if node.value == val:
-                if self.head == node and self.tail == node:
+                if node == self.head and node == self.tail:
                     self.head = None
                     self.tail = None
-                elif self.head != node and self.tail != node:
+                elif node != self.head and node != self.tail:
                     node.prev.next, node.next.prev = node.next, node.prev
-                elif self.tail == node:
+                elif node == self.tail:
                     self.tail = node.prev
                     node.prev.next = node.next
-                elif self.head == node:
+                elif node == self.head:
                     self.head = node.next
                     node.next.prev = node.prev
                 if not all:
-                    return
+                    break
             node = node.next
 
     def clean(self):
@@ -71,7 +71,7 @@ class LinkedList2:
 
     def insert(self, afterNode, newNode):
         if afterNode is None:
-            if not self.len():
+            if self.len() == 0:
                 newNode.prev = self.head.prev
                 newNode.next, self.head.prev = self.head, newNode
                 self.head = newNode
