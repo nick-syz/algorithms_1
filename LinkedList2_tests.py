@@ -117,20 +117,18 @@ class LinkedList2Test(TestCase):
         self.list.insert(None, n99)
         self.assertEqual(n99, self.list.head)
         self.assertEqual(n99, self.list.tail)
+        self.assertEqual(None, self.list.head.next)
+        self.assertEqual(None, self.list.head.prev)
+        self.assertEqual(None, self.list.tail.prev)
+        self.assertEqual(None, self.list.tail.next)
 
         # afterNode != None in empty list
+        self.list.clean()
         n44 = Node(44)
-        
+         
         # insert after wrong node
         self.list.insert(n44, Node(33))
-        self.assertEqual(1, self.list.len())
-
-        # insert after right node
-        n32 = Node(32)
-        self.list.insert(n99, n32)
-        self.assertEqual(2, self.list.len())
-        self.assertEqual(n99, self.list.head)
-        self.assertEqual(n32, self.list.tail)
+        self.assertEqual(0, self.list.len())
 
         #----- test with one element
         self.list.clean()
@@ -142,6 +140,10 @@ class LinkedList2Test(TestCase):
         self.list.insert(None, n321)
         self.assertEqual(n123, self.list.head)
         self.assertEqual(n321, self.list.tail)
+        self.assertEqual(None, self.list.tail.next)
+        self.assertEqual(2, self.list.len())
+        self.assertEqual(n321, self.list.head.next)
+        self.assertEqual(n123, self.list.tail.prev)
 
         # afterNode != None
         n55 = Node(55)
@@ -158,7 +160,7 @@ class LinkedList2Test(TestCase):
         self.assertEqual(n55.next, n66)
         n66_obj = self.list.find(66)
         self.assertEqual(n66_obj.prev, n55)
-    
+ 
     def test_in_head(self):
         # test with null element in the list
         self.list.clean()
@@ -167,9 +169,10 @@ class LinkedList2Test(TestCase):
 
         self.assertEqual(n1, self.list.head)
         self.assertEqual(n1, self.list.tail)
-        n1_obj = self.list.find(1)
-        self.assertEqual(n1_obj.prev, None)
-        self.assertEqual(n1_obj.next, None)
+        self.assertEqual(None, self.list.tail.next)
+        self.assertEqual(None, self.list.tail.prev)
+        self.assertEqual(None, self.list.head.next)
+        self.assertEqual(None, self.list.head.prev)
 
         # test with one element in the list
         n22 = Node(22)
@@ -177,3 +180,21 @@ class LinkedList2Test(TestCase):
         
         self.assertEqual(n22, self.list.head)
         self.assertEqual(n1, self.list.tail)
+        self.assertEqual(n1, self.list.head.next)
+        self.assertEqual(None, self.list.head.prev)
+        self.assertEqual(n22, self.list.tail.prev)
+        self.assertEqual(None, self.list.tail.next)
+        self.assertEqual(2, self.list.len())
+
+        # test with few elements in the list
+        n33 = Node(33)
+        self.list.add_in_head(n33)
+
+        self.assertEqual(3, self.list.len())
+
+        self.assertEqual(n33, self.list.head)
+        self.assertEqual(None, self.list.head.prev)
+        self.assertEqual(n22, self.list.head.next)
+        self.assertEqual(n1, self.list.tail)
+        self.assertEqual(n33, self.list.head.next.prev)
+        self.assertEqual(n1, self.list.head.next.next)
