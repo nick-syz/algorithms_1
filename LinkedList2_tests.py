@@ -198,3 +198,13 @@ class LinkedList2Test(TestCase):
         self.assertEqual(n1, self.list.tail)
         self.assertEqual(n33, self.list.head.next.prev)
         self.assertEqual(n1, self.list.head.next.next)
+
+    def tests_add1(self):
+        self.list.clean()
+
+        self.assertEqual(0, self.list.len())
+
+        self.list.add_in_tail(Node(10))
+
+    def test_add2(self):
+        self.assertEqual(0, self.list.len())
