@@ -55,10 +55,10 @@ class LinkedList2:
                 elif node == self.head:
                     self.head = node.next
                     node.next.prev = node.prev
+                self.length -= 1
                 if not all:
                     break
             node = node.next
-        self.length -= 1
 
     def clean(self):
         self.head = None
@@ -78,13 +78,14 @@ class LinkedList2:
                 newNode.next = self.tail.next
                 self.tail.next, newNode.prev = newNode, self.tail
             self.tail = newNode
+            self.length += 1
         else:
             if self.head is not None:
                 if self.tail == afterNode:
                     self.tail = newNode
                 afterNode.next, newNode.next = newNode, afterNode.next
                 newNode.prev = afterNode
-        self.length += 1
+                self.length += 1
 
     def add_in_head(self, newNode):
         if self.head is not None:

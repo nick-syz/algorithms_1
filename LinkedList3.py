@@ -46,10 +46,10 @@ class LinkedList3:
         while node is not self.tail:
             if node.value == val:
                 node.prev.next, node.next.prev = node.next, node.prev
+                self.length -= 1
                 if not all:
                     break
             node = node.next
-        self.length -= 1
 
     def clean(self):
         self.head.next = self.tail
@@ -69,11 +69,12 @@ class LinkedList3:
                 self.tail.prev.next = newNode
             newNode.next = self.tail
             self.tail.prev = newNode
+            self.length += 1
         else:
             if self.head.next is not self.tail:
                 newNode.next = afterNode.next
                 afterNode.next, newNode.prev = newNode, afterNode
-        self.length += 1
+                self.length += 1
 
     def add_in_head(self, newNode):
         newNode.next = self.head.next

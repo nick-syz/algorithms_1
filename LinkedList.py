@@ -59,11 +59,11 @@ class LinkedList:
                     node_prev.next = node.next
                 elif self.head == node:
                     self.head = node.next
+                self.length -= 1
                 if not all:
                     break
             node_prev = node
             node = node.next
-        self.length -= 1
 
     def clean(self):
         self.head = None
@@ -78,9 +78,10 @@ class LinkedList:
             if self.head is None:
                 self.tail = newNode
             self.head, newNode.next = newNode, self.head
+            self.length += 1
         else:
             if self.head is not None:
                 if self.tail == afterNode:
                     self.tail = newNode
                 afterNode.next, newNode.next = newNode, afterNode.next
-        self.length += 1
+                self.length += 1
