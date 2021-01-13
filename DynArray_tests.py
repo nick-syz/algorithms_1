@@ -115,3 +115,10 @@ class DynArrayTest(TestCase):
         # delete element in the wrong position
         # self.array.delete(-1)
         # self.array.delete(15)
+
+        # test min capcity after deleting few elements
+        for i in range(5):
+            self.array.delete(0)
+
+        self.assertEqual(10, self.array.__len__())
+        self.assertEqual(16, self.array.capacity) # capacity does not equal 14!
