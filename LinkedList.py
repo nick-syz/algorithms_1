@@ -11,6 +11,7 @@ class LinkedList:
     def __init__(self):
         self.head = None
         self.tail = None
+        self.length = 0
 
     def add_in_tail(self, item):
         if self.head is None:
@@ -18,6 +19,7 @@ class LinkedList:
         else:
             self.tail.next = item
         self.tail = item
+        self.length += 1
 
     def print_all_nodes(self):
         node = self.head
@@ -61,18 +63,15 @@ class LinkedList:
                     break
             node_prev = node
             node = node.next
-    
+        self.length -= 1
+
     def clean(self):
         self.head = None
         self.tail = None
+        self.length = 0
 
     def len(self):
-        n = 0
-        node = self.head
-        while node is not None:
-            n += 1
-            node = node.next
-        return n
+        return self.length
 
     def insert(self, afterNode, newNode):
         if afterNode is None:
@@ -84,3 +83,4 @@ class LinkedList:
                 if self.tail == afterNode:
                     self.tail = newNode
                 afterNode.next, newNode.next = newNode, afterNode.next
+        self.length += 1
