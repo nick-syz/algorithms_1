@@ -1,6 +1,6 @@
 # https://skillsmart.ru/algo/py-kf32y/y6a342a5104u.html
 
-class Node():
+class Node:
     def __init__(self, v):
         self.value = v
         self.prev = None
@@ -10,7 +10,7 @@ class _DummyNode(Node):
     def __init__(self):
         super().__init__(None)
 
-class LinkedList3():
+class LinkedList3:
     def __init__(self):
         self.head = _DummyNode()
         self.tail = _DummyNode()
