@@ -37,6 +37,15 @@ class DynArrayTest(TestCase):
         self.array.append(11)
         self.assertEqual(32, self.array.capacity)
 
+    def test_insert1(self):
+        self.assertEqual(0, self.array.__len__())
+        self.array.append(1)
+        self.assertEqual(1, self.array.__len__())
+        
+        self.array.insert(1, 22)
+        self.assertEqual(2, self.array.__len__())
+        self.assertEqual(22, self.array[1])
+
     def test_delete(self):
         self.array.append(1)
         self.array.append(2) # -> [1, 2]

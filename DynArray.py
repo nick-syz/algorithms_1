@@ -34,21 +34,24 @@ class DynArray:
         self.count += 1
 
     def insert(self, i, itm):
-        if i < 0 or i >= self.count:
+        if i < 0 or i > self.count:
             raise IndexError('Index is out of bounds')
         if self.count == self.capacity:
             self.resize(2*self.capacity)
         self.count += 1
-        prev = None
-        for j in range(self.count):
-            if j > i:
-                if j < self.count-1:
-                    self.array[j], prev = prev, self.array[j]
-                else:
-                    self.array[j] = prev
-            elif j == i:
-                prev = self.array[j]
-                self.array[j] = itm
+        if i == self.count-1:
+            self.array[i] = itm
+        else:
+            prev = None
+            for j in range(self.count):
+                if j > i:
+                    if j < self.count-1:
+                        self.array[j], prev = prev, self.array[j]
+                    else:
+                        self.array[j] = prev
+                elif j == i:
+                    prev = self.array[j]
+                    self.array[j] = itm
 
     def delete(self, i):
         if i < 0 or i >= self.count:
