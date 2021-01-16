@@ -1,7 +1,7 @@
-from Stack2 import Stack
+from Stack import Stack
 from unittest import TestCase
 
-class Stack2_test(TestCase):
+class Stack2Test(TestCase):
 
     def setUp(self):
         self.stack = Stack()

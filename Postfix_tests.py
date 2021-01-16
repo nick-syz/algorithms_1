@@ -1,7 +1,7 @@
 from Postfix import calculate
 from unittest import TestCase
 
-class Postfix_test(TestCase):
+class PostfixTest(TestCase):
     def test(self):
         self.assertEqual(59, calculate('8 2 + 5 * 9 + =')) # (8 + 2)*5 + 9 = 59
         self.assertEqual(9, calculate('1 2 + 3 * =')) # (1 + 2)*3 = 9

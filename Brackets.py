@@ -1,4 +1,4 @@
-from Stack2 import Stack
+from Stack import Stack
 
 def Balanced(brackets):
     if not len(brackets):

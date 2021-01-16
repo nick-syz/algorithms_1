@@ -1,4 +1,4 @@
-from Stack2 import Stack
+from Stack import Stack
 
 def S1_gen(string):
     S1 = Stack()
