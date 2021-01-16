@@ -3,7 +3,7 @@ from Stack2 import Stack
 def S1_gen(string):
     S1 = Stack()
     for i in string[::-1]:
-        if i != ' ':
+        if i is not ' ':
             S1.push(i)
     return S1
 
@@ -18,14 +18,14 @@ def calculate(string):
             S2.push(int(i))
         elif i in '+*=':
             num = 0
-            if i == '+':
+            if i is '+':
                 while S2.size():
                     num += S2.pop()
-            elif i == '*':
+            elif i is '*':
                 num = 1
                 while S2.size():
                     num *= S2.pop()
-            elif i == '=':
+            elif i is '=':
                 return S2.peek()
             S2.push(num)
     return 'Please, add "=" in the end of your expression.'
