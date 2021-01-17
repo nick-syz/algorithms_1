@@ -17,15 +17,14 @@ def calculate(string):
         if i.isnumeric():
             S2.push(int(i))
         elif i in '+*=':
-            num = 0
             if i is '+':
-                while S2.size():
-                    num += S2.pop()
+                num = S2.pop()
+                num += S2.pop()
+                S2.push(num)
             elif i is '*':
-                num = 1
-                while S2.size():
-                    num *= S2.pop()
+                num = S2.pop()
+                num *= S2.pop()
+                S2.push(num)
             elif i is '=':
                 return S2.peek()
-            S2.push(num)
-    return 'Please, add "=" in the end of your expression.'
+    raise 'Please, add "=" in the end of your expression.'

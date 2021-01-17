@@ -1,5 +1,11 @@
 from DynArray import DynArray
 
+'''
+The Queue realizaiton by array with fixed length.
+enqueue() - O(1);
+dequeue() - O(1).
+'''
+
 class Queue:
     def __init__(self):
         self.array = DynArray()

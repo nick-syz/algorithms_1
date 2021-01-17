@@ -1,5 +1,11 @@
 from Stack import Stack
 
+'''
+The queue realization by two stacks.
+enqueue() - O(1);
+dequeue() - O(n).
+'''
+
 class Queue:
     def __init__(self):
         self.stack1 = Stack()
@@ -11,10 +17,10 @@ class Queue:
         self.length += 1
 
     def dequeue(self):
-        self.length -= 1
         while self.stack1.size():
             self.stack2.push(self.stack1.pop())
         if self.stack2.size():
+            self.length -= 1
             return self.stack2.pop()
         return None
     
