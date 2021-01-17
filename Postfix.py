@@ -16,15 +16,10 @@ def calculate(string):
         i = S1.pop()
         if i.isnumeric():
             S2.push(int(i))
-        elif i in '+*=':
-            if i is '+':
-                num = S2.pop()
-                num += S2.pop()
-                S2.push(num)
-            elif i is '*':
-                num = S2.pop()
-                num *= S2.pop()
-                S2.push(num)
-            elif i is '=':
-                return S2.peek()
+        elif i is '+':
+            S2.push(S2.pop()+S2.pop())
+        elif i is '*':
+            S2.push(S2.pop()*S2.pop())
+        elif i is '=':
+            return S2.peek()
     raise 'Please, add "=" in the end of your expression.'
