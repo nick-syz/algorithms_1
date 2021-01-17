@@ -6,7 +6,7 @@ def Balanced(brackets):
     stack = Stack()
     for i in brackets:
         if stack.size():
-            if stack.head.next.value == '(' and i == ')':
+            if stack.peek() == '(' and i == ')':
                 stack.pop()
             else:
                 stack.push('(')

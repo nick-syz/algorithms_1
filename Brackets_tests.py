@@ -18,3 +18,5 @@ class Brackets_test(TestCase):
         self.assertEqual(False, Balanced('(((((('))
         self.assertEqual(False, Balanced(')))))))'))
         self.assertEqual(False, Balanced('(((((('))
+        self.assertEqual(False, Balanced(')))(((('))
+        self.assertEqual(False, Balanced(')))((('))
