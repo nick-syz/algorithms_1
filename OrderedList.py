@@ -20,11 +20,9 @@ class OrderedList:
         self.length = 0
 
     def compare(self, v1, v2):
-        if v1 > v2:
-            return 1
-        elif v1 == v2:
-            return -1
-        return 0
+        if v1 >= v2:
+            return True
+        return False
 
     def add(self, value):
         new_node = Node(value)
@@ -70,13 +68,12 @@ class OrderedList:
             return self.head.next
         elif val == tail:
             return self.tail.prev
-        else:
-            if val > head and val < tail or val < head and val > tail:
-                node = self.head.next
-                while node is not self.tail:
-                    if val == node.value:
-                        return node
-                    node = node.next
+        elif val > head and val < tail or val < head and val > tail:
+            node = self.head.next
+            while node is not self.tail:
+                if val == node.value:
+                    return node
+                node = node.next
         return None
 
     def delete(self, val):
@@ -108,8 +105,6 @@ class OrderedStringList(OrderedList):
         super(OrderedStringList, self).__init__(asc)
 
     def compare(self, v1, v2):
-        if v1.strip() > v2.strip():
-            return 1
-        elif v1.strip() == v2.strip():    
-            return -1
-        return 0
+        if v1.strip() >= v2.strip():
+            return True
+        return False
