@@ -17,9 +17,12 @@ class OrderedListTest(TestCase):
         self.list.add(8) # 1 -> 2 -> 3 -> 6 -> 8 -> 10 -> 22
         self.list.add(1) # 1 -> 1 -> 2 -> 3 -> 6 -> 8 -> 10 -> 22
         self.assertEqual(8, self.list.len()) # length(list) = 7
-        self.assertEqual(1, self.list.head.next.value)
+        self.assertEqual(1, self.list.head.value)
         
-        r = [node.value for node in self.list.get_all() if node.value != None]
+        self.assertEqual(1, self.list.head.value)
+        self.assertEqual(22, self.list.tail.value)
+
+        r = [node.value for node in self.list.get_all()]
         self.assertEqual([1, 1, 2, 3, 6, 8, 10, 22], r)
 
     def test_add2(self):
@@ -34,9 +37,12 @@ class OrderedListTest(TestCase):
         self.list.add(10) # 33 -> 10 -> 10 -> 6 -> 3 -> 1
         self.list.add(8) # 33 -> 10 -> 10 -> 8 -> 6 -> 3 -> 1
         self.assertEqual(7, self.list.len()) # length(list) = 7
-        self.assertEqual(33, self.list.head.next.value)
+        self.assertEqual(33, self.list.head.value)
         
-        r = [node.value for node in self.list.get_all() if node.value != None]
+        self.assertEqual(33, self.list.head.value)
+        self.assertEqual(1, self.list.tail.value)
+
+        r = [node.value for node in self.list.get_all()]
         self.assertEqual([33, 10, 10, 8, 6, 3, 1], r)
 
     def test_find(self):
@@ -51,8 +57,11 @@ class OrderedListTest(TestCase):
         self.list.add(10) # 33 -> 10 -> 10 -> 6 -> 3 -> 1
         self.list.add(8) # 33 -> 10 -> 10 -> 8 -> 6 -> 3 -> 1
         self.assertEqual(7, self.list.len()) # length(list) = 7
-        self.assertEqual(33, self.list.head.next.value)
+        self.assertEqual(33, self.list.head.value)
         
+        self.assertEqual(33, self.list.head.value)
+        self.assertEqual(1, self.list.tail.value)
+
         node = self.list.find(10)
         self.assertEqual(10, node.value)
 
@@ -77,26 +86,28 @@ class OrderedListTest(TestCase):
         self.list.add(8) # 1 -> 2 -> 3 -> 6 -> 8 -> 10 -> 22
         self.list.add(1) # 1 -> 1 -> 2 -> 3 -> 6 -> 8 -> 10 -> 22
         
+        self.assertEqual(1, self.list.head.value)
+        self.assertEqual(22, self.list.tail.value)
         self.assertEqual(8, self.list.len()) # length(list) = 7
-        self.assertEqual(1, self.list.head.next.value)
-
+        self.assertEqual(1, self.list.head.value)
+        
         self.list.delete(22)
-        r = [node.value for node in self.list.get_all() if node.value != None]
+        r = [node.value for node in self.list.get_all()]
         self.assertEqual([1, 1, 2, 3, 6, 8, 10], r)
         self.assertEqual(7, self.list.len())
 
         self.list.delete(1)
-        r = [node.value for node in self.list.get_all() if node.value != None]
+        r = [node.value for node in self.list.get_all()]
         self.assertEqual([1, 2, 3, 6, 8, 10], r)
         self.assertEqual(6, self.list.len())
 
         self.list.delete(5)
-        r = [node.value for node in self.list.get_all() if node.value != None]
+        r = [node.value for node in self.list.get_all()]
         self.assertEqual([1, 2, 3, 6, 8, 10], r)
         self.assertEqual(6, self.list.len())
 
         self.list.delete(6)
-        r = [node.value for node in self.list.get_all() if node.value != None]
+        r = [node.value for node in self.list.get_all()]
         self.assertEqual([1, 2, 3, 8, 10], r)
         self.assertEqual(5, self.list.len())
 
@@ -112,10 +123,13 @@ class OrderedListTest(TestCase):
         self.list1.add('a') # 'a'
         self.list1.add('r') # 'a' -> 'r'
         self.list1.add('e') # 'a' -> 'e' -> 'r'
+        
+        self.assertEqual('a', self.list1.head.value)
+        self.assertEqual('r', self.list1.tail.value)
 
         self.assertEqual(3, self.list1.len())
         
-        r = [node.value for node in self.list1.get_all() if node.value != None]
+        r = [node.value for node in self.list1.get_all()]
         self.assertEqual(['a', 'e', 'r'], r)
      
     def test_string_add1(self):
@@ -128,5 +142,8 @@ class OrderedListTest(TestCase):
         self.list1.add(' k') # 'z' -> 'k' -> 'k' -> 'e' -> 'e' -> 'a'
         self.assertEqual(6, self.list1.len())
         
-        r = [node.value for node in self.list1.get_all() if node.value != None]
+        self.assertEqual('   z', self.list1.head.value)
+        self.assertEqual('a ', self.list1.tail.value)
+        
+        r = [node.value for node in self.list1.get_all()]
         self.assertEqual(['   z', ' k', 'k ', '  e', 'e ', 'a '], r)
