@@ -6,16 +6,10 @@ class Node:
         self.prev = None
         self.next = None
 
-class _DummyNode(Node):
-    def __init__(self):
-        super().__init__(None)
-
 class OrderedList:
     def __init__(self, asc):
-        self.head = _DummyNode()
-        self.tail = _DummyNode()
-        self.head.next = self.tail
-        self.tail.prev = self.head
+        self.head = None
+        self.tail = None
         self.__ascending = asc
         self.length = 0
 
@@ -27,18 +21,18 @@ class OrderedList:
     def add(self, value):
         new_node = Node(value)
         if not self.length:
-            new_node.next = self.head.next
-            new_node.prev = self.head
-            self.head.next.prev = new_node
-            self.head.next = new_node
+            self.head = new_node
+            self.tail = new_node
+            new_node.next = None
+            new_node.prev = None
         else:    
-            node = self.head.next
-            while node is not self.tail:
+            node = self.head
+            while node is not None:
                 # checking current value
                 more = self.compare(new_node.value, node.value)
                 # checking next value
                 less = None
-                if node.next.value is None:
+                if node.next is None:
                     if self.__ascending:
                         less = True
                     else:
@@ -49,28 +43,34 @@ class OrderedList:
                 if more and less and self.__ascending or not more and not less and not self.__ascending:
                     new_node.next = node.next
                     new_node.prev = node
-                    node.next.prev = new_node
+                    if node.next is not None:
+                        node.next.prev = new_node
                     node.next = new_node
+                    if node is self.tail:
+                        self.tail = new_node
                     break
                 elif not more and self.__ascending or more and not self.__ascending:
                     new_node.next = node
                     new_node.prev = node.prev
-                    node.prev.next = new_node
+                    if node.prev is not None:
+                        node.prev.next = new_node
                     node.prev = new_node
+                    if node is self.head:
+                        self.head = new_node
                     break
                 node = node.next
         self.length += 1
 
     def find(self, val):
-        head = self.head.next.value
-        tail = self.tail.prev.value
+        head = self.head.value
+        tail = self.tail.value
         if val == head:
-            return self.head.next
+            return self.head
         elif val == tail:
-            return self.tail.prev
+            return self.tail
         elif val > head and val < tail or val < head and val > tail:
-            node = self.head.next
-            while node is not self.tail:
+            node = self.head
+            while node is not None:
                 if val == node.value:
                     return node
                 node = node.next
@@ -81,21 +81,29 @@ class OrderedList:
             node = self.find(val)
             if node:
                 self.length -= 1
-                node.prev.next, node.next.prev = node.next, node.prev
+                if node is self.head and node is self.tail:
+                    self.head = None
+                    self.tail = None
+                elif node is not self.head and node is not self.tail:
+                    node.prev.next, node.next.prev = node.next, node.prev
+                elif node is self.tail:
+                    self.tail, node.prev.next = node.prev, node.next
+                elif node is self.head:
+                    self.head, node.next.prev = node.next, node.prev
 
     def clean(self, asc):
-        self.length = 0
+        self.head = None
+        self.tail = None
         self.__ascending = asc
-        self.head.next = self.tail
-        self.tail.prev = self.head
+        self.length = 0
 
     def len(self):
         return self.length
 
     def get_all(self):
         r = []
-        node = self.head.next
-        while node is not self.tail:
+        node = self.head
+        while node is not None:
             r.append(node)
             node = node.next
         return r
