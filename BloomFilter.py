@@ -9,13 +9,13 @@ class BloomFilter:
     def hash1(self, str1):
         i = 0
         for c in str1:
-            i = (i*17 + ord(c))%10
+            i = (i*17 + ord(c)) % self.filter_len
         return i
 
     def hash2(self, str1):
         j = 0
         for c in str1:
-            j = (j*223 + ord(c))%10
+            j = (j*223 + ord(c)) % self.filter_len
         return j
 
     def add(self, str1):
