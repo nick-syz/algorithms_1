@@ -6,7 +6,9 @@ class BloomFilterTest(TestCase):
         self.bloom = BloomFilter(10)
 
     def test_add(self):
+        self.assertEqual(0, self.bloom.arr[0])
         self.bloom.add('0123456789')
+        self.assertEqual(1, self.bloom.arr[-1])
         self.assertEqual(True, self.bloom.is_value('0123456789'))
 
         self.bloom.add('1234567890')

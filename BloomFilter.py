@@ -4,7 +4,7 @@ class BloomFilter:
 
     def __init__(self, f_len):
         self.filter_len = f_len
-        self.arr = [0] * f_len
+        self.arr = bytearray(f_len)
 
     def hash1(self, str1):
         i = 0
