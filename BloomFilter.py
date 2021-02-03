@@ -23,6 +23,6 @@ class BloomFilter:
             self.mask = self.mask | self.hash1(str1) | self.hash2(str1)
 
     def is_value(self, str1):
-        if self.filter_len:
-            return self.mask == ((self.hash1(str1) | self.hash2(str1)) & self.mask)
+        if self.filter_len and self.mask:
+            return self.mask == (self.mask & (self.hash1(str1) | self.hash2(str1)))
         return False

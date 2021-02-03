@@ -18,6 +18,17 @@ class BloomFilterTest(TestCase):
         self.zero = BloomFilter(0)
 
     def test_add(self):
+        self.assertEqual(False, self.bloom.is_value(self.s1))
+        self.assertEqual(False, self.bloom.is_value(self.s2))
+        self.assertEqual(False, self.bloom.is_value(self.s3))
+        self.assertEqual(False, self.bloom.is_value(self.s4))
+        self.assertEqual(False, self.bloom.is_value(self.s5))
+        self.assertEqual(False, self.bloom.is_value(self.s6))
+        self.assertEqual(False, self.bloom.is_value(self.s7))
+        self.assertEqual(False, self.bloom.is_value(self.s8))
+        self.assertEqual(False, self.bloom.is_value(self.s9))
+        self.assertEqual(False, self.bloom.is_value(self.s10))
+
         self.bloom.add(self.s1)
         self.assertEqual(True, self.bloom.is_value(self.s1))
 
