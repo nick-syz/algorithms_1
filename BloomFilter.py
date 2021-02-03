@@ -19,9 +19,10 @@ class BloomFilter:
         return 1 << j
 
     def add(self, str1):
-        self.mask = self.mask | self.hash1(str1) | self.hash2(str1)
+        if self.filter_len:
+            self.mask = self.mask | self.hash1(str1) | self.hash2(str1)
 
     def is_value(self, str1):
-        if self.mask == self.mask & (self.hash1(str1) | self.hash2(str1)):
-            return True
+        if self.filter_len:
+            return self.mask == ((self.hash1(str1) | self.hash2(str1)) & self.mask)
         return False

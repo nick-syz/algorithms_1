@@ -4,6 +4,7 @@ from unittest import TestCase
 class BloomFilterTest(TestCase):
     def setUp(self):
         self.bloom = BloomFilter(10)
+        self.bloom1 = BloomFilter(0)
 
     def test_add(self):
         self.bloom.add('0123456789')
@@ -24,3 +25,9 @@ class BloomFilterTest(TestCase):
         self.bloom.add('8901234567')
         self.bloom.add('9012345678')
         self.bloom.add('0123456789')
+
+    def test_empty(self):
+        self.bloom1.add('0123456789')
+        self.assertEqual(0, self.bloom1.filter_len)
+
+        self.assertEqual(False, self.bloom1.is_value('0123456789'))
