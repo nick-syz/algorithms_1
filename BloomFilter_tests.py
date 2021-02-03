@@ -30,8 +30,6 @@ class BloomFilterTest(TestCase):
         self.assertEqual(False, self.bloom.is_value(self.s10))
 
         self.bloom.add(self.s1)
-        self.assertEqual(True, self.bloom.is_value(self.s1))
-
         self.bloom.add(self.s2)
         self.bloom.add(self.s3)
         self.bloom.add(self.s4)
@@ -47,11 +45,22 @@ class BloomFilterTest(TestCase):
         self.bloom.add(self.s9)
         self.bloom.add(self.s10)
 
+        self.assertEqual(True, self.bloom.is_value(self.s1))
+        self.assertEqual(True, self.bloom.is_value(self.s2))
+        self.assertEqual(True, self.bloom.is_value(self.s3))
+        self.assertEqual(True, self.bloom.is_value(self.s4))
+        self.assertEqual(True, self.bloom.is_value(self.s5))
+        self.assertEqual(True, self.bloom.is_value(self.s6))
+        self.assertEqual(True, self.bloom.is_value(self.s7))
+        self.assertEqual(True, self.bloom.is_value(self.s8))
+        self.assertEqual(True, self.bloom.is_value(self.s9))
+        self.assertEqual(True, self.bloom.is_value(self.s10))
+
     def test_empty(self):
         self.zero.add(self.s1)
 
         self.assertEqual(0, self.zero.filter_len)
-        self.assertEqual(0, self.zero.mask)
+        self.assertEqual(0, self.zero.arr)
         
         self.assertEqual(False, self.zero.is_value(self.s1))
         self.assertEqual(False, self.zero.is_value(self.s2))

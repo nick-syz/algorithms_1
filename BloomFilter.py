@@ -4,7 +4,7 @@ class BloomFilter:
 
     def __init__(self, f_len):
         self.filter_len = f_len
-        self.mask = 0
+        self.arr = 0
 
     def hash1(self, str1):
         i = 0
@@ -20,9 +20,10 @@ class BloomFilter:
 
     def add(self, str1):
         if self.filter_len:
-            self.mask = self.mask | self.hash1(str1) | self.hash2(str1)
+            self.arr = self.arr | self.hash1(str1) | self.hash2(str1)
 
     def is_value(self, str1):
-        if self.filter_len and self.mask:
-            return self.mask == (self.mask & (self.hash1(str1) | self.hash2(str1)))
+        if self.filter_len and self.arr:
+            mask = self.hash1(str1) | self.hash2(str1)
+            return mask == self.arr & mask
         return False
