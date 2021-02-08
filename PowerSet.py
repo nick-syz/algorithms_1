@@ -41,37 +41,45 @@ class PowerSet:
     def intersection(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         res = PowerSet()
-        for i in range(len(set2.slots)):
-            for val in set2.slots[i]:
-                if self.get(val):
-                    res.put(val)
+        if set2.size():
+            for i in range(len(set2.slots)):
+                for val in set2.slots[i]:
+                    if self.get(val):
+                        res.put(val)
         return res
 
     def union(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
-        for i in range(len(set2.slots)):
-            for val in set2.slots[i]:
-                self.put(val)
-        return self 
+        res = PowerSet()
+        if set2.size():
+            res.slots = self.slots
+            res.sz = self.sz
+            res.count = self.count
+            for i in range(len(set2.slots)):
+                for val in set2.slots[i]:
+                    res.put(val)
+        return res 
 
     def difference(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         res = PowerSet()
-        for i in range(len(self.slots)):
-            for val in self.slots[i]:
-                if not set2.get(val):
-                    res.put(val)
+        if set2.size():
+            for i in range(len(self.slots)):
+                for val in self.slots[i]:
+                    if not set2.get(val):
+                        res.put(val)
         return res
 
     def issubset(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         count = 0
         length = 0
-        for i in range(len(set2.slots)):
-            for val in set2.slots[i]:
-                if self.get(val):
-                    count += 1
-            length += len(set2.slots[i])
-        if count == length:
-            return True
+        if set2.size():
+            for i in range(len(set2.slots)):
+                for val in set2.slots[i]:
+                    if self.get(val):
+                        count += 1
+                length += len(set2.slots[i])
+            if count == length:
+                return True
         return False
