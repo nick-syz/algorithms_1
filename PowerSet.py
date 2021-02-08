@@ -41,7 +41,7 @@ class PowerSet:
     def intersection(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         res = PowerSet()
-        if set2.size():
+        if set2.size() and self.size():
             for i in range(len(set2.slots)):
                 for val in set2.slots[i]:
                     if self.get(val):
@@ -51,7 +51,7 @@ class PowerSet:
     def union(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         res = PowerSet()
-        if set2.size():
+        if set2.size() or self.size():
             res.slots = self.slots
             res.sz = self.sz
             res.count = self.count
@@ -63,7 +63,7 @@ class PowerSet:
     def difference(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         res = PowerSet()
-        if set2.size():
+        if self.size():
             for i in range(len(self.slots)):
                 for val in self.slots[i]:
                     if not set2.get(val):
@@ -73,13 +73,11 @@ class PowerSet:
     def issubset(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         count = 0
-        length = 0
-        if set2.size():
+        if set2.size() and self.size():
             for i in range(len(set2.slots)):
                 for val in set2.slots[i]:
                     if self.get(val):
                         count += 1
-                length += len(set2.slots[i])
-            if count == length:
-                return True
+        if self.size() == count and self.size() >= set2.size():
+            return True
         return False
