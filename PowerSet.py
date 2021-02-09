@@ -29,55 +29,47 @@ class PowerSet:
 
     def remove(self, value):
         # O(m^2+m), where m = len(i)
-        if self.get(value):
-            i = self.hash(value)
-            for j in self.slots[i]:
-                if j == value:
-                    self.slots[i].remove(value)
-                    self.count -= 1
-                    return True
+        i = self.hash(value)
+        for j in self.slots[i]:
+            if j == value:
+                self.slots[i].remove(value)
+                self.count -= 1
+                return True
         return False
 
     def intersection(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         res = PowerSet()
-        if set2.size() and self.size():
-            for i in range(len(set2.slots)):
-                for val in set2.slots[i]:
-                    if self.get(val):
-                        res.put(val)
+        for i in range(len(set2.slots)):
+            for val in set2.slots[i]:
+                if self.get(val):
+                    res.put(val)
         return res
 
     def union(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         res = PowerSet()
-        if set2.size() or self.size():
-            res.slots = self.slots
-            res.sz = self.sz
-            res.count = self.count
-            for i in range(len(set2.slots)):
-                for val in set2.slots[i]:
-                    res.put(val)
+        res.slots = self.slots
+        res.sz = self.sz
+        res.count = self.count
+        for i in range(len(set2.slots)):
+            for val in set2.slots[i]:
+                res.put(val)
         return res 
 
     def difference(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         res = PowerSet()
-        if self.size():
-            for i in range(len(self.slots)):
-                for val in self.slots[i]:
-                    if not set2.get(val):
-                        res.put(val)
+        for i in range(len(self.slots)):
+            for val in self.slots[i]:
+                if not set2.get(val):
+                    res.put(val)
         return res
 
     def issubset(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
-        count = 0
-        if set2.size() and self.size():
-            for i in range(len(set2.slots)):
-                for val in set2.slots[i]:
-                    if self.get(val):
-                        count += 1
-        if self.size() == count and self.size() >= set2.size():
-            return True
-        return False
+        for i in range(len(set2.slots)):
+            for val in set2.slots[i]:
+                if not self.get(val):
+                    return False
+        return True

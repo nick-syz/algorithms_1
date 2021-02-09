@@ -16,6 +16,8 @@ class PowerSetTest(TestCase):
 
         for i in range(20000):
             self.assertEqual(True, self.set.get(str(i)))
+        
+        self.assertEqual(20000, self.set.size())   
 
     def test_remove(self):
         for i in range(self.l):
@@ -24,11 +26,12 @@ class PowerSetTest(TestCase):
         for i in range(self.l):
             self.assertEqual(True, self.set.get(str(i)))
 
-        self.assertEqual(self.l, self.set.size())
-
-        for i in range(self.l):
-            self.assertEqual(True, self.set.remove(str(i)))
+        for i in range(self.l, 2*self.l):
+            self.assertEqual(False, self.set.get(str(i)))
         
+        for i in range(self.l):
+            self.set.remove(str(i))
+
         self.assertEqual(0, self.set.size())
 
     def test_intersection(self):
@@ -56,7 +59,7 @@ class PowerSetTest(TestCase):
         # set = empty and set2 = empty
         res3 = PowerSet().intersection(PowerSet())
         self.assertEqual(0, res3.size())
-
+        
     def test_union(self):
         for i in range(self.l, 2*self.l):
             self.set2.put(str(i))
@@ -109,7 +112,32 @@ class PowerSetTest(TestCase):
 
         for i in range(self.l, 2*self.l):
             self.set2.put(str(i))
-        
+    
+    def test_difference2(self):
+        self.set.put(str(1))
+        self.set.put(str(2))
+        self.set.put(str(3))
+
+        self.set2.put(str(5))
+        self.set2.put(str(20))
+        self.set2.put(str(10))
+        self.set2.put(str(4))
+
+        res = self.set.difference(self.set2)
+
+        self.assertEqual(3, res.size())
+
+        self.assertEqual(True, self.set.get(str(1)))
+        self.assertEqual(True, self.set.get(str(2)))
+        self.assertEqual(True, self.set.get(str(3)))
+
+        self.set2.put(str(1))
+        self.set2.put(str(2))
+        self.set2.put(str(3))
+
+        self.assertEqual(0, (self.set.difference(self.set2).size()))
+
+    '''
     def test_issubset(self):
         for i in range(self.l):
             self.set.put(str(i))
@@ -132,16 +160,16 @@ class PowerSetTest(TestCase):
         # set = empty and set2 = empty
         res3 = PowerSet().issubset(PowerSet())
         self.assertEqual(True, res3)
-
+    '''
+    
     def test_issubset1(self):
         for i in range(self.l):
             self.set.put(str(i))
 
-        for i in range(self.l-4):
-            self.set2.put(str(i))
+        for j in range(self.l-4):
+            self.set2.put(str(j))
 
-        res = self.set.issubset(self.set2)
-        self.assertEqual(False, res)
-    
-        res1 = self.set2.issubset(self.set)
-        self.assertEqual(False, res1)
+        self.assertEqual(True, self.set.issubset(self.set2))
+        
+        # len(set2) < len(set)
+        self.assertEqual(False, self.set2.issubset(self.set))
