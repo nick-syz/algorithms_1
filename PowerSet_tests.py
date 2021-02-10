@@ -103,37 +103,49 @@ class PowerSetTest(TestCase):
 
     def test_difference1(self):
         for i in range(100): 
-            self.set.put(str(i))
+            self.set.put(str(i)) # -> {0..99}
 
         for i in range(100, 200):
-            self.set2.put(str(i))
+            self.set2.put(str(i)) # -> {100..199}
         
-        self.assertEqual(100, (self.set.difference(self.set2).size()))
-        self.assertEqual(100, (self.set2.difference(self.set).size()))
+        # {0..99} - {100..199} = {0..99}
+        res = self.set.difference(self.set2)
+
+        # {100..199} - {0..99} = {100..199}
+        res1 = self.set2.difference(self.set)
+
+        self.assertEqual(100, res.size())
+        self.assertEqual(100, res1.size())
+        
+        for i in range(100):
+            self.assertEqual(True, res.get(str(i)))
+
+        for i in range(100, 200):
+            self.assertEqual(True, res1.get(str(i)))
+
 
     def test_difference2(self):
-        self.set.put(str(1))
-        self.set.put(str(2))
-        self.set.put(str(3)) # set = {1, 2, 3}
+        for i in range(100):
+            self.set.put(str(i)) # -> {0..99}
 
-        self.set2.put(str(5))
-        self.set2.put(str(20))
-        self.set2.put(str(10))
-        self.set2.put(str(4)) # set2 = {5, 20, 10, 4}
+        for i in range(50, 150):
+            self.set2.put(str(i)) # -> {50..149}
+        
+        # {0..99} - {50..149} = {0..49}
+        res = self.set.difference(self.set2)
 
-        self.assertEqual(3, (self.set.difference(self.set2)).size()) # {1, 2, 3}
-        self.assertEqual(True, self.set.get(str(1)))
-        self.assertEqual(True, self.set.get(str(2)))
-        self.assertEqual(True, self.set.get(str(3)))
+        # {50..149} - {0..99} = {100..149}
+        res1 = self.set2.difference(self.set)
 
-        self.set2.put(str(1))
-        self.set2.put(str(2))
-        self.set2.put(str(3)) # set2 = {5, 20, 10, 4, 1, 2, 3}
+        self.assertEqual(50, res.size())
+        self.assertEqual(50, res1.size())
 
-        self.assertEqual(0, (self.set.difference(self.set2).size())) # {}
+        for i in range(50):
+            self.assertEqual(True, res.get(str(i)))
 
-        self.assertEqual(4, (self.set2.difference(self.set).size())) # {5, 20, 10, 4}
-
+        for i in range(100, 150):
+            self.assertEqual(True, res1.get(str(i)))
+    
     def test_issubset(self):
         for i in range(100):
             self.set.put(str(i))
