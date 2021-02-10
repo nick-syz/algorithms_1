@@ -30,11 +30,12 @@ class PowerSet:
     def remove(self, value):
         # O(m^2+m), where m = len(i)
         i = self.hash(value)
-        for j in self.slots[i]:
-            if j == value:
-                self.slots[i].remove(value)
-                self.count -= 1
-                return True
+        if self.count:
+            for j in self.slots[i]:
+                if j == value:
+                    self.slots[i].remove(value)
+                    self.count -= 1
+                    return True
         return False
 
     def intersection(self, set2):
