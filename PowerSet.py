@@ -53,7 +53,6 @@ class PowerSet:
         for i in range(len(self.slots)):
             for val in self.slots[i]:
                 res.put(val)
-
         for i in range(len(set2.slots)):
             for val in set2.slots[i]:
                 res.put(val)
