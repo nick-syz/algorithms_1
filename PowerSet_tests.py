@@ -122,30 +122,39 @@ class PowerSetTest(TestCase):
 
         for i in range(100, 200):
             self.assertEqual(True, res1.get(str(i)))
-
+    
 
     def test_difference2(self):
-        for i in range(100):
-            self.set.put(str(i)) # -> {0..99}
+        # add values from 1 to 100 to set
+        for i in range(1, 101):
+            self.set.put(str(i)) # -> {1..100}
 
-        for i in range(50, 150):
-            self.set2.put(str(i)) # -> {50..149}
+        self.assertEqual(100, self.set.size())
         
-        # {0..99} - {50..149} = {0..49}
+        # add values from 50 to 150 to set2
+        for i in range(50, 151):
+            self.set2.put(str(i)) # -> {50..150}
+        
+        self.assertEqual(101, self.set2.size())
+        
+        # {1..100} - {50..150} = {1..49}
         res = self.set.difference(self.set2)
 
-        # {50..149} - {0..99} = {100..149}
+        self.assertEqual(49, res.size())
+
+        # {50..150} - {1..100} = {101..150}
         res1 = self.set2.difference(self.set)
 
-        self.assertEqual(50, res.size())
         self.assertEqual(50, res1.size())
-
-        for i in range(50):
+        
+        for i in range(1, 50):
             self.assertEqual(True, res.get(str(i)))
-
-        for i in range(100, 150):
+            self.assertEqual(False, res1.get((str(i))))
+        
+        for i in range(101, 151):
             self.assertEqual(True, res1.get(str(i)))
-    
+            self.assertEqual(False, res.get((str(i))))
+ 
     def test_issubset(self):
         for i in range(100):
             self.set.put(str(i))
