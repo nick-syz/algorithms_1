@@ -141,10 +141,13 @@ class PowerSetTest(TestCase):
         res = self.set.difference(self.set2)
 
         self.assertEqual(49, res.size())
+        
+        res1 = self.set.union(self.set2)
+        self.assertEqual(150, res1.size())
 
         # {50..150} - {1..100} = {101..150}
         res1 = self.set2.difference(self.set)
-
+        
         self.assertEqual(50, res1.size())
         
         for i in range(1, 50):

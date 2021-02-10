@@ -50,9 +50,10 @@ class PowerSet:
     def union(self, set2):
         # O(n^2*m), where n = len(set) and m = len(i)
         res = PowerSet()
-        res.slots = self.slots
-        res.sz = self.sz
-        res.count = self.count
+        for i in range(len(self.slots)):
+            for val in self.slots[i]:
+                res.put(val)
+
         for i in range(len(set2.slots)):
             for val in set2.slots[i]:
                 res.put(val)
