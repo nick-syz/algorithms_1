@@ -28,7 +28,7 @@ class NativeDictionary:
             if i > self.size-1:
                 i = abs(i-self.size-1)
                 step += 1
-    
+
     def get(self, key):
         if self.is_key(key):
             return self.values[self.hash_fun(key)]
