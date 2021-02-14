@@ -12,7 +12,7 @@ class NativeCache:
         return sum(key.encode()) % self.size
 
     def put(self, key, value):
-        # O(2n)
+        # O(~2n)
         i = self.hash_fun(key)
         # min() function has complexity O(n)
         least = min(self.hits)

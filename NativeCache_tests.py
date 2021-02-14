@@ -2,10 +2,6 @@ from NativeCache import NativeCache
 from unittest import TestCase
 
 class NativeCacheTest(TestCase):
-    # проверить добавление новых пар ключ-значение в свободный и заполненный кэш
-    # сгенерить коллизии
-    # проверить учет количества обращений к ключам
-
     def setUp(self):
         self.cache = NativeCache(11)
 
@@ -26,7 +22,7 @@ class NativeCacheTest(TestCase):
         self.assertEqual(11, self.cache.count)
 
         self.cache.put('11', '11')
-        for _ in range(5):
+        for i in range(5):
             self.assertEqual('11', self.cache.get('11'))
         i = self.cache.hits.index(6)
         self.assertEqual('11', self.cache.slots[i])
