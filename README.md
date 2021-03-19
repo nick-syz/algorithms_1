@@ -1,1 +1,2 @@
-# 1 Структуры данных и алгоритмы: Python
+# 1 Data Structures and algorithms: Python
+## Basic data structures
