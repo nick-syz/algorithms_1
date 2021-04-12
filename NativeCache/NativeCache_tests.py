@@ -16,16 +16,16 @@ class NativeCacheTest(TestCase):
             self.assertIsNone(self.cache.get(str(i)))
 
     def test_add_in_full_cache(self):
-        self.assertEqual(0, self.cache.count)
+        self.assertEqual(0, self.cache.elements_count)
         for i in range(11):
             self.cache.put(str(i), str(i))
-        self.assertEqual(11, self.cache.count)
+        self.assertEqual(11, self.cache.elements_count)
 
         self.cache.put('11', '11')
         for i in range(5):
             self.assertEqual('11', self.cache.get('11'))
         i = self.cache.hits.index(6)
-        self.assertEqual('11', self.cache.slots[i])
+        self.assertEqual('11', self.cache.keys[i])
 
         self.cache.put('12', '12')
         self.assertEqual('12', self.cache.get('12'))
