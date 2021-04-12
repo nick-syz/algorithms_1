@@ -60,7 +60,7 @@ class BloomFilterTest(TestCase):
         self.zero.add(self.s1)
 
         self.assertEqual(0, self.zero.filter_len)
-        self.assertEqual(0, self.zero.arr)
+        self.assertEqual(0, self.zero.bit_array)
         
         self.assertEqual(False, self.zero.is_value(self.s1))
         self.assertEqual(False, self.zero.is_value(self.s2))

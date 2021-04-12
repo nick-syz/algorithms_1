@@ -4,26 +4,26 @@ class BloomFilter:
 
     def __init__(self, f_len):
         self.filter_len = f_len
-        self.arr = 0
+        self.bit_array = 0
 
-    def hash1(self, str1):
-        i = 0
-        for c in str1:
-            i = (i*17 + ord(c)) % self.filter_len
-        return 1 << i
+    def hash1(self, string):
+        number = 0
+        for element in string:
+            number = (number*17 + ord(element)) % self.filter_len
+        return 1 << number
 
-    def hash2(self, str1):
-        j = 0
-        for c in str1:
-            j = (j*223 + ord(c)) % self.filter_len
-        return 1 << j
+    def hash2(self, string):
+        number = 0
+        for element in string:
+            number = (number*223 + ord(element)) % self.filter_len
+        return 1 << number
 
-    def add(self, str1):
+    def add(self, added_string):
         if self.filter_len:
-            self.arr = self.arr | self.hash1(str1) | self.hash2(str1)
+            self.bit_array = self.bit_array | self.hash1(added_string) | self.hash2(added_string)
 
-    def is_value(self, str1):
-        if self.filter_len and self.arr:
-            mask = self.hash1(str1) | self.hash2(str1)
-            return mask == self.arr & mask
+    def is_value(self, string):
+        if self.filter_len and self.bit_array:
+            mask = self.hash1(string) | self.hash2(string)
+            return mask == self.bit_array & mask
         return False
