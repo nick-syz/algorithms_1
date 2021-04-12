@@ -5,63 +5,64 @@ import ctypes
 class DynArray:
 
     def __init__(self):
-        self.count = 0
-        self.capacity = 16
-        self.array = self.make_array(self.capacity)
+        self.elements_count = 0
+        self.array_capacity = 16
+        self.array = self.make_array(self.array_capacity)
 
     def __len__(self):
-        return self.count
+        return self.elements_count
 
     def make_array(self, new_capacity):
         return (new_capacity * ctypes.py_object)()
 
-    def __getitem__(self,i):
-        if i < 0 or i >= self.count:
+    def __getitem__(self, index):
+        if index < 0 or index >= self.elements_count:
             raise IndexError('Index is out of bounds')
-        return self.array[i]
+        return self.array[index]
 
     def resize(self, new_capacity):
         new_array = self.make_array(new_capacity)
-        for i in range(self.count):
+        for i in range(self.elements_count):
             new_array[i] = self.array[i]
         self.array = new_array
-        self.capacity = new_capacity
+        self.array_capacity = new_capacity
 
-    def append(self, itm):
-        if self.count == self.capacity:
-            self.resize(2*self.capacity)
-        self.array[self.count] = itm
-        self.count += 1
+    def append(self, added_item):
+        if self.elements_count == self.array_capacity:
+            self.resize(2*self.array_capacity)
+        self.array[self.elements_count] = added_item
+        self.elements_count += 1
 
-    def insert(self, i, itm):
-        if i < 0 or i > self.count:
+    def insert(self, index_of_inserted_item, inserted_item):
+        if index_of_inserted_item < 0 or index_of_inserted_item > self.elements_count:
             raise IndexError('Index is out of bounds')
-        if self.count == self.capacity:
-            self.resize(2*self.capacity)
-        self.count += 1
-        if i == self.count-1:
-            self.array[i] = itm
+        if self.elements_count == self.array_capacity:
+            self.resize(2*self.array_capacity)
+        self.elements_count += 1
+        if index_of_inserted_item == self.elements_count-1:
+            self.array[index_of_inserted_item] = inserted_item
         else:
-            prev = None
-            for j in range(self.count):
-                if j > i:
-                    if j < self.count-1:
-                        self.array[j], prev = prev, self.array[j]
+            previosly_item = None
+            for some_index in range(self.elements_count):
+                if some_index > index_of_inserted_item:
+                    if some_index < self.elements_count-1:
+                        self.array[some_index], previosly_item = \
+                                previosly_item, self.array[some_index]
                     else:
-                        self.array[j] = prev
-                elif j == i:
-                    prev = self.array[j]
-                    self.array[j] = itm
+                        self.array[some_index] = previosly_item
+                elif some_index == index_of_inserted_item:
+                    previosly_item = self.array[some_index]
+                    self.array[some_index] = inserted_item
 
-    def delete(self, i):
-        if i < 0 or i >= self.count:
+    def delete(self, index_of_deleted_item):
+        if index_of_deleted_item < 0 or index_of_deleted_item >= self.elements_count:
             raise IndexError('Index is out of bounds')
-        for j in range(self.count):
-            if j > i:
-                self.array[j-1] = self.array[j]
-        self.count -= 1
-        if self.count < self.capacity*0.5:
-            if int(self.capacity/1.5) < 16:
+        for some_index in range(self.elements_count):
+            if some_index > index_of_deleted_item:
+                self.array[some_index-1] = self.array[some_index]
+        self.elements_count -= 1
+        if self.elements_count < self.array_capacity*0.5:
+            if int(self.array_capacity/1.5) < 16:
                 self.resize(16)
             else:
-                self.resize(int(self.capacity/1.5))
+                self.resize(int(self.array_capacity/1.5))

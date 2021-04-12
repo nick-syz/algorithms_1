@@ -35,7 +35,7 @@ class DynArrayTest(TestCase):
         
         self.assertEqual(16, self.array.__len__())
         self.array.append(11)
-        self.assertEqual(32, self.array.capacity)
+        self.assertEqual(32, self.array.array_capacity)
 
     def test_insert1(self):
         self.assertEqual(0, self.array.__len__())
@@ -79,7 +79,7 @@ class DynArrayTest(TestCase):
         self.assertEqual(2, self.array.__len__())
         
         # check capacity
-        self.assertEqual(16, self.array.capacity)
+        self.assertEqual(16, self.array.array_capacity)
 
         # insert new elements for length(array) = 16
         for i in range(14):
@@ -92,7 +92,7 @@ class DynArrayTest(TestCase):
         self.array.insert(0, 55)
 
         # check new capacity value
-        self.assertEqual(32, self.array.capacity)
+        self.assertEqual(32, self.array.array_capacity)
         
         # check inserting new elements to index = count (array)
         self.array.insert(17, 2)
@@ -106,10 +106,10 @@ class DynArrayTest(TestCase):
         
         # delete some elements
         self.array.delete(0) # len -> 16
-        self.assertEqual(32, self.array.capacity)
+        self.assertEqual(32, self.array.array_capacity)
 
         self.array.delete(0) # len -> 15
-        self.assertEqual(21, self.array.capacity)
+        self.assertEqual(21, self.array.array_capacity)
         self.assertEqual(15, self.array.__len__())
 
         # delete element in the wrong position
@@ -121,4 +121,4 @@ class DynArrayTest(TestCase):
             self.array.delete(0)
 
         self.assertEqual(10, self.array.__len__())
-        self.assertEqual(16, self.array.capacity) # capacity does not equal 14!
+        self.assertEqual(16, self.array.array_capacity) # capacity does not equal 14!
