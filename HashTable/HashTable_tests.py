@@ -58,5 +58,4 @@ class HashTableTest(TestCase):
         self.table.put('Rae')
 
         r = [v for v in self.table.slots if v != None]
-        print(r)
         self.assertEqual(len(r), 12)
